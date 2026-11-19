@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Must match the main project's TFM and Windows SDK projections so the
+         ProjectReference can load its WinRT/CmdPal types (else NETSDK1148). -->
+    <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
+    <WindowsSdkPackageVersion>10.0.26100.68-preview</WindowsSdkPackageVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <!-- CA1707: xunit test method names conventionally use underscores. -->
+    <NoWarn>$(NoWarn);CA1707</NoWarn>
+    <!-- The main project needs a platform for its MSIX packaging steps. -->
+    <Platform Condition="'$(Platform)' == ''">x64</Platform>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" PrivateAssets="all" />
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DockerExtension\DockerExtension.csproj" AdditionalProperties="Platform=x64" />
+  </ItemGroup>
+
+</Project>
